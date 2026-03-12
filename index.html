@@ -567,16 +567,104 @@
     font-size: 10px; color: var(--forum-dim); display: flex; justify-content: space-between;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
+  /* ── RESPONSIVE ── */
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    .aegis-body, .alliance-body { padding: 24px; }
+    .forum-body { padding: 24px; }
+    .aegis-nav-bar { padding: 0 24px; }
+    .aegis-header-top { padding: 14px 24px; }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+
+    /* Top nav */
+    #site-nav { flex-wrap: wrap; }
+    .nav-logo { display: none; }
+    .nav-tab { flex: 1; text-align: center; padding: 12px 8px; font-size: 10px; }
+
+    /* Body padding */
+    .aegis-body, .alliance-body { padding: 16px; }
+    .forum-body { padding: 14px; }
+
+    /* AEGIS header */
+    .aegis-header-top { flex-wrap: wrap; padding: 14px 16px; gap: 12px; }
+    .aegis-seal { width: 40px; height: 40px; font-size: 14px; }
+    .aegis-title-block h1 { font-size: 14px; }
+    .aegis-title-block p { display: none; }
+    .aegis-classification { margin-left: 0; width: 100%; text-align: center; }
+
+    /* AEGIS sub-nav — horizontal scroll */
+    .aegis-nav-bar {
+      padding: 0 8px; overflow-x: auto;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      white-space: nowrap; flex-wrap: nowrap;
+    }
+    .aegis-nav-bar::-webkit-scrollbar { display: none; }
+    .aegis-nav-item { padding: 10px 14px; font-size: 10px; flex-shrink: 0; }
+
+    /* AEGIS grids */
     .aegis-welcome { grid-template-columns: 1fr; }
     .districts-grid { grid-template-columns: 1fr; }
-    .aegis-body, .alliance-body { padding: 20px; }
-    .forum-body { padding: 20px; }
     .dossier-body { grid-template-columns: 1fr; }
-    .alliance-hero-grid { grid-template-columns: 1fr; }
-    .incident-row { grid-template-columns: 100px 70px 1fr; }
+    .dossier-main { border-right: none; border-bottom: 1px solid var(--aegis-border); }
+
+    /* Dossier header — stack threat level below */
+    .dossier-header { flex-wrap: wrap; }
+    .dossier-threat {
+      border-left: none; border-top: 1px solid var(--aegis-border);
+      width: 100%; text-align: left; padding: 10px 20px;
+    }
+
+    /* Incident log */
+    .incident-row { grid-template-columns: 100px 60px 1fr; gap: 8px; }
     .incident-row .incident-status { display: none; }
+    .incident-row .incident-desc { font-size: 10px; }
+
+    /* AEGIS footer */
+    .aegis-footer { flex-direction: column; gap: 8px; text-align: center; }
+
+    /* Alliance sub-nav — horizontal scroll */
+    .alliance-header-nav {
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; white-space: nowrap; flex-wrap: nowrap;
+    }
+    .alliance-header-nav::-webkit-scrollbar { display: none; }
+    .alliance-header-nav-item { flex-shrink: 0; font-size: 10px; }
+
+    /* Alliance grid */
+    .alliance-hero-grid { grid-template-columns: 1fr; }
+    .bio-card-body { padding: 20px; }
+    .alliance-press-footer { flex-direction: column; gap: 6px; text-align: center; }
+
+    /* Forum sub-nav — horizontal scroll */
+    .forum-nav-bar {
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; white-space: nowrap; flex-wrap: nowrap;
+    }
+    .forum-nav-bar::-webkit-scrollbar { display: none; }
+    .forum-nav-item { flex-shrink: 0; font-size: 10px; }
+
+    /* Forum posts — collapse sidebar to top bar */
+    .forum-post { flex-direction: column; }
+    .post-sidebar {
+      width: 100%; flex-direction: row; flex-wrap: wrap;
+      padding: 10px 14px; gap: 8px;
+      border-right: none; border-bottom: 1px solid var(--forum-border);
+      align-items: center; justify-content: flex-start; text-align: left;
+    }
+    .null-post .post-sidebar { border-bottom-color: #1a2a35; }
+    .post-avatar { width: 32px; height: 32px; font-size: 14px; margin-bottom: 0; flex-shrink: 0; }
+    .post-username { font-size: 12px; }
+    .post-role, .post-count, .post-joined { font-size: 9px; }
+    .post-content { padding: 12px 14px; }
+    .post-body { font-size: 12px; }
+    .null-post .post-body { font-size: 11px; }
+
+    /* Forum footer */
+    .forum-footer { flex-direction: column; gap: 6px; }
   }
 </style>
 </head>
