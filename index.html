@@ -1,277 +1,1679 @@
 <!DOCTYPE html>
-<!--
-  virekpapers.net/user/null_signal
-  profile requested: null_signal
-  status: user exists
-  posts: 9
-  last_seen: [REDACTED]
-  registration_ip: [REDACTED]
-  registration_email: [REDACTED]
-
-  NOTE TO SELF (do not publish): this account was not created through the normal registration flow.
-  phpBB logs show the account entry was written directly to the database.
-  No registration timestamp. No confirmation email sent. No IP on file.
-  It's like it was always here and we just didn't notice until three days ago.
-
-  I flagged it to the mod team. No response yet.
-  — HarborWatch_88, site admin
--->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--
-  page_title: User Profile — null_signal
-  page_status: 404
-  page_note: profile exists in DB but is not renderable by standard template
-  error_code: PROFILE_TEMPLATE_NULL
-  error_detail: user fields return valid data but display layer cannot resolve them
-  this is not a standard 404. something is wrong with this specific record.
--->
-<title>404 — virekpapers.net</title>
-<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>Halden City</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@300;400;500;600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #0d0d0b;
-    color: #b0a888;
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+
+  :root {
+    --aegis-bg: #0a0d12;
+    --aegis-panel: #0f1520;
+    --aegis-border: #1e3a5f;
+    --aegis-accent: #1a6fa8;
+    --aegis-text: #a8bfcf;
+    --aegis-bright: #d4e8f5;
+    --aegis-red: #c0392b;
+    --aegis-gold: #b8960c;
+    --aegis-dim: #4a6070;
+
+    --alliance-bg: #f8f7f4;
+    --alliance-panel: #ffffff;
+    --alliance-accent: #1a3a5c;
+    --alliance-gold: #c9943a;
+    --alliance-text: #2a2a2a;
+    --alliance-sub: #6b6b6b;
+    --alliance-border: #e0ddd8;
+
+    --forum-bg: #0d0d0b;
+    --forum-panel: #111108;
+    --forum-border: #2a2800;
+    --forum-accent: #c8960a;
+    --forum-text: #b0a888;
+    --forum-dim: #5a5240;
+    --forum-bright: #e8d890;
+    --forum-null: #7ab8d4;
+    --forum-null-bg: #060d12;
   }
 
-  .forum-bar {
-    background: #080800;
-    border-bottom: 1px solid #2a2800;
-    padding: 10px 40px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 13px;
-    color: #c8960a;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .forum-bar a {
-    color: #c8960a; text-decoration: none;
-    border-bottom: 1px dotted #c8960a;
-  }
-  .forum-bar a:hover { opacity: 0.7; }
-  .forum-bar .sep { color: #3a3000; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Rajdhani', sans-serif; background: #050505; color: #ccc; overflow-x: hidden; }
 
-  .error-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 40px;
-    text-align: center;
+  /* ── NAV ── */
+  #site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; gap: 0;
+    background: #050505; border-bottom: 1px solid #222;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
   }
+  .nav-tab {
+    padding: 14px 24px; cursor: pointer; text-transform: uppercase;
+    transition: all 0.2s; border-right: 1px solid #1a1a1a;
+    color: #555; white-space: nowrap;
+  }
+  .nav-tab:hover { color: #999; background: #0a0a0a; }
+  .nav-tab.active-aegis { color: #1a6fa8; background: #070d14; border-bottom: 2px solid #1a6fa8; }
+  .nav-tab.active-alliance { color: #c9943a; background: #100e08; border-bottom: 2px solid #c9943a; }
+  .nav-tab.active-forum { color: #c8960a; background: #080800; border-bottom: 2px solid #c8960a; }
+  .nav-divider { width: 1px; height: 42px; background: #2a2a2a; }
+  .nav-logo { padding: 12px 20px; color: #333; font-size: 10px; letter-spacing: 0.15em; margin-right: auto; }
 
-  .error-code {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 96px;
-    color: #1a1a16;
-    line-height: 1;
-    margin-bottom: 4px;
-    letter-spacing: -4px;
-    /* the real color is below — this is a placeholder */
-  }
-  /* actual 404 rendered in pseudo so it's not directly in the DOM */
-  .error-code::after {
-    content: '404';
-    display: block;
-    color: #2a2800;
-    font-size: 96px;
-    letter-spacing: -4px;
-    margin-top: -96px;
-  }
+  /* ── SECTIONS ── */
+  .site-section { display: none; min-height: 100vh; padding-top: 43px; }
+  .site-section.active { display: block; }
 
-  .error-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-    color: #5a5240;
-    letter-spacing: 0.15em;
+  /* ═══════════════════════════════════════
+     AEGIS SECTION
+  ═══════════════════════════════════════ */
+  #aegis { background: var(--aegis-bg); color: var(--aegis-text); font-family: 'IBM Plex Mono', monospace; }
+
+  .aegis-header {
+    background: var(--aegis-panel);
+    border-bottom: 2px solid var(--aegis-border);
+    padding: 0;
+  }
+  .aegis-header-top {
+    display: flex; align-items: center; gap: 20px;
+    padding: 16px 40px;
+    border-bottom: 1px solid var(--aegis-border);
+  }
+  .aegis-seal {
+    width: 52px; height: 52px; border: 2px solid var(--aegis-accent);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--aegis-accent); flex-shrink: 0;
+    position: relative;
+  }
+  .aegis-seal::before {
+    content: ''; position: absolute; inset: 3px; border-radius: 50%;
+    border: 1px solid var(--aegis-border);
+  }
+  .aegis-title-block h1 { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 18px; color: var(--aegis-bright); letter-spacing: 0.15em; text-transform: uppercase; }
+  .aegis-title-block p { font-size: 10px; color: var(--aegis-dim); letter-spacing: 0.1em; margin-top: 3px; }
+  .aegis-classification {
+    margin-left: auto; padding: 6px 14px; border: 1px solid var(--aegis-red);
+    font-size: 10px; color: var(--aegis-red); letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 500;
+  }
+  .aegis-nav-bar {
+    display: flex; padding: 0 40px;
+    font-size: 11px; letter-spacing: 0.08em;
+  }
+  .aegis-nav-item {
+    padding: 12px 20px; cursor: pointer; color: var(--aegis-dim);
+    border-bottom: 2px solid transparent; transition: all 0.2s;
     text-transform: uppercase;
-    margin-bottom: 40px;
+  }
+  .aegis-nav-item:hover, .aegis-nav-item.active { color: var(--aegis-accent); border-bottom-color: var(--aegis-accent); }
+
+  .aegis-body { padding: 40px; max-width: 1100px; margin: 0 auto; }
+  .aegis-page { display: none; }
+  .aegis-page.active { display: block; }
+
+  .aegis-welcome {
+    display: grid; grid-template-columns: 1fr 320px; gap: 32px; margin-bottom: 40px;
+  }
+  .aegis-mission {
+    background: var(--aegis-panel); border: 1px solid var(--aegis-border); padding: 28px;
+  }
+  .aegis-mission h2 {
+    font-family: 'Rajdhani', sans-serif; font-size: 11px; color: var(--aegis-accent);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--aegis-border);
+  }
+  .aegis-mission p { font-size: 12px; line-height: 1.8; color: var(--aegis-text); margin-bottom: 12px; }
+  .aegis-mission p:last-child { margin-bottom: 0; }
+
+  .aegis-sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .aegis-status-panel {
+    background: var(--aegis-panel); border: 1px solid var(--aegis-border); padding: 20px;
+  }
+  .aegis-status-panel h3 {
+    font-size: 10px; color: var(--aegis-accent); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--aegis-border);
+  }
+  .status-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; padding: 5px 0; border-bottom: 1px solid #0f1e2e;
+  }
+  .status-row:last-child { border-bottom: none; }
+  .status-label { color: var(--aegis-dim); }
+  .status-val { color: var(--aegis-bright); }
+  .status-val.green { color: #2ea84a; }
+  .status-val.yellow { color: var(--aegis-gold); }
+  .status-val.red { color: var(--aegis-red); }
+
+  .aegis-incident-log {
+    background: var(--aegis-panel); border: 1px solid var(--aegis-border); padding: 28px;
+    margin-bottom: 32px;
+  }
+  .aegis-incident-log h2 {
+    font-size: 11px; color: var(--aegis-accent); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--aegis-border);
+  }
+  .incident-row {
+    display: grid; grid-template-columns: 130px 80px 1fr 120px;
+    gap: 16px; font-size: 11px; padding: 8px 0;
+    border-bottom: 1px solid #0f1e2e; align-items: center;
+  }
+  .incident-row:last-child { border-bottom: none; }
+  .incident-row.header { color: var(--aegis-dim); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .incident-id { color: var(--aegis-accent); font-weight: 500; }
+  .incident-class { padding: 2px 8px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; display: inline-block; }
+  .class-alpha { background: #0f2a0f; color: #2ea84a; border: 1px solid #1a4a1a; }
+  .class-beta { background: #2a1f00; color: var(--aegis-gold); border: 1px solid #4a3800; }
+  .class-gamma { background: #2a0a0a; color: var(--aegis-red); border: 1px solid #4a1a1a; }
+  .incident-desc { color: var(--aegis-text); }
+  .incident-status { font-size: 10px; color: var(--aegis-dim); }
+
+  .aegis-footer {
+    margin-top: 60px; padding: 20px 0; border-top: 1px solid var(--aegis-border);
+    font-size: 10px; color: var(--aegis-dim); letter-spacing: 0.08em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-corrupt {
+    font-family: 'Share Tech Mono', monospace; color: var(--aegis-dim);
+    position: relative;
+  }
+  .footer-corrupt .glitch-char {
+    color: #c8960a; animation: glitch-flicker 4s infinite;
+  }
+  @keyframes glitch-flicker {
+    0%, 96%, 100% { opacity: 1; }
+    97% { opacity: 0; }
+    98% { opacity: 1; color: #ff4444; }
+    99% { opacity: 0; }
   }
 
-  .error-panel {
-    background: #111108;
-    border: 1px solid #2a2800;
-    padding: 32px 40px;
-    max-width: 520px;
-    width: 100%;
-    text-align: left;
+  /* Hero Profiles */
+  .aegis-profiles-grid { display: flex; flex-direction: column; gap: 24px; }
+  .aegis-dossier {
+    background: var(--aegis-panel); border: 1px solid var(--aegis-border);
+    overflow: hidden;
   }
-
-  .error-panel h2 {
-    font-size: 13px;
-    color: #5a5240;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #2a2800;
+  .dossier-header {
+    display: flex; align-items: center; gap: 0;
+    background: #080f18; border-bottom: 1px solid var(--aegis-border);
   }
-
-  .error-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    padding: 6px 0;
-    border-bottom: 1px solid #1a1a10;
+  .dossier-class-bar {
+    width: 6px; align-self: stretch;
   }
-  .error-row:last-child { border-bottom: none; }
-  .err-label { color: #5a5240; }
-  .err-val { color: #b0a888; text-align: right; }
-  .err-val.exists { color: #7ab870; }
-  .err-val.null-col { color: #7ab8d4; }
-  .err-val.bad { color: #c8400a; }
-
-  .back-link {
-    margin-top: 32px;
-    font-family: 'Share Tech Mono', monospace;
+  .dossier-class-bar.allied { background: #1a6fa8; }
+  .dossier-class-bar.restricted { background: var(--aegis-gold); }
+  .dossier-header-info { padding: 16px 20px; flex: 1; }
+  .dossier-header-info h3 {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 16px;
+    color: var(--aegis-bright); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .dossier-header-info .codename { font-size: 11px; color: var(--aegis-accent); letter-spacing: 0.08em; }
+  .dossier-threat {
+    padding: 16px 24px; text-align: right; border-left: 1px solid var(--aegis-border);
+  }
+  .threat-label { font-size: 9px; color: var(--aegis-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .threat-val { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; }
+  .threat-val.high { color: var(--aegis-gold); }
+  .threat-val.extreme { color: var(--aegis-red); }
+  .threat-val.moderate { color: #2ea84a; }
+  .dossier-body {
+    display: grid; grid-template-columns: 1fr 280px; gap: 0;
+  }
+  .dossier-main { padding: 24px; border-right: 1px solid var(--aegis-border); }
+  .dossier-field { margin-bottom: 16px; }
+  .dossier-field:last-child { margin-bottom: 0; }
+  .field-label {
+    font-size: 9px; color: var(--aegis-dim); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 5px;
+  }
+  .field-val { font-size: 12px; color: var(--aegis-text); line-height: 1.7; }
+  .redacted {
+    background: var(--aegis-bright); color: var(--aegis-bright);
+    display: inline; padding: 0 4px; user-select: none;
     font-size: 11px;
-    color: #c8960a;
-    text-decoration: none;
-    border-bottom: 1px dotted #c8960a;
-    letter-spacing: 0.08em;
   }
-  .back-link:hover { opacity: 0.7; }
+  .dossier-meta { padding: 24px; }
+  .meta-item { margin-bottom: 14px; }
+  .meta-item .field-label { color: var(--aegis-dim); }
+  .meta-item .field-val { font-size: 11px; }
+  .analyst-note {
+    background: #0a1520; border-left: 3px solid var(--aegis-gold);
+    padding: 12px 14px; margin-top: 16px;
+    font-size: 11px; color: var(--aegis-dim); line-height: 1.7; font-style: italic;
+  }
+  .analyst-note::before {
+    content: 'ANALYST NOTE // '; color: var(--aegis-gold); font-style: normal; font-size: 10px; letter-spacing: 0.1em;
+  }
 
-  .footer-bar {
-    background: #080800;
-    border-top: 1px solid #2a2800;
-    padding: 10px 40px;
-    font-size: 10px;
-    color: #3a3000;
-    font-family: 'Share Tech Mono', monospace;
-    display: flex;
-    justify-content: space-between;
+  /* Districts */
+  .districts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .district-card {
+    background: var(--aegis-panel); border: 1px solid var(--aegis-border); padding: 24px;
+    position: relative; overflow: hidden;
+  }
+  .district-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .district-card.crownpoint::before { background: #1a6fa8; }
+  .district-card.ironworks::before { background: #8a4a1a; }
+  .district-card.riverside::before { background: #2ea84a; }
+  .district-card.glass::before { background: #4a8ab0; }
+  .district-card.monument::before { background: var(--aegis-gold); }
+  .district-card.blackwater::before { background: #2a3a4a; }
+  .district-card h3 {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 14px;
+    color: var(--aegis-bright); text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .district-card .district-zone { font-size: 10px; color: var(--aegis-dim); letter-spacing: 0.1em; margin-bottom: 14px; text-transform: uppercase; }
+  .district-card p { font-size: 12px; color: var(--aegis-text); line-height: 1.75; margin-bottom: 10px; }
+  .district-threat-row { display: flex; gap: 16px; margin-top: 12px; }
+  .district-badge {
+    font-size: 9px; padding: 3px 8px; border: 1px solid; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .badge-low { color: #2ea84a; border-color: #1a4a1a; background: #0a1f0a; }
+  .badge-med { color: var(--aegis-gold); border-color: #4a3800; background: #1a1400; }
+  .badge-high { color: var(--aegis-red); border-color: #4a1a1a; background: #1a0808; }
+
+  /* Alliance section */
+  .alliance-faction {
+    background: var(--aegis-panel); border: 1px solid var(--aegis-border); padding: 28px; margin-bottom: 0;
+  }
+  .alliance-faction h2 {
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 14px;
+    color: var(--aegis-bright); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--aegis-border);
+  }
+  .alliance-faction p { font-size: 12px; line-height: 1.8; color: var(--aegis-text); margin-bottom: 12px; }
+  .faction-member-list { margin-top: 20px; }
+  .faction-member {
+    display: flex; align-items: center; gap: 16px;
+    padding: 10px 0; border-bottom: 1px solid #0f1e2e; font-size: 11px;
+  }
+  .faction-member:last-child { border-bottom: none; }
+  .member-name { color: var(--aegis-bright); font-weight: 600; width: 120px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .member-real { color: var(--aegis-dim); width: 140px; }
+  .member-class-badge { font-size: 9px; padding: 2px 8px; border: 1px solid var(--aegis-accent); color: var(--aegis-accent); letter-spacing: 0.08em; text-transform: uppercase; }
+  .aegis-tension-note {
+    margin-top: 20px; padding: 16px; background: #080f18; border-left: 3px solid var(--aegis-gold);
+    font-size: 11px; color: var(--aegis-dim); line-height: 1.7;
+  }
+
+  /* ═══════════════════════════════════════
+     ALLIANCE SECTION
+  ═══════════════════════════════════════ */
+  #alliance { background: var(--alliance-bg); color: var(--alliance-text); font-family: 'Source Serif 4', serif; }
+
+  .alliance-header {
+    background: var(--alliance-accent); color: white; padding: 0;
+  }
+  .alliance-header-top {
+    display: flex; align-items: center; gap: 24px; padding: 20px 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .alliance-wordmark {
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 22px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: white;
+  }
+  .alliance-wordmark span { color: var(--alliance-gold); }
+  .alliance-tagline { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; margin-top: 3px; font-family: 'Source Serif 4', serif; font-style: italic; }
+  .alliance-header-nav {
+    display: flex; padding: 0 60px;
+    font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 0.1em;
+  }
+  .alliance-header-nav-item {
+    padding: 14px 20px; cursor: pointer; color: rgba(255,255,255,0.6);
+    border-bottom: 3px solid transparent; transition: all 0.2s; text-transform: uppercase;
+  }
+  .alliance-header-nav-item:hover, .alliance-header-nav-item.active {
+    color: white; border-bottom-color: var(--alliance-gold);
+  }
+
+  .alliance-body { max-width: 1100px; margin: 0 auto; padding: 60px; }
+  .alliance-page { display: none; }
+  .alliance-page.active { display: block; }
+
+  .alliance-hero-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .alliance-bio-card {
+    background: var(--alliance-panel); border: 1px solid var(--alliance-border);
+    overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .bio-card-accent { height: 5px; background: var(--alliance-accent); }
+  .bio-card-accent.gold { background: var(--alliance-gold); }
+  .bio-card-body { padding: 28px; }
+  .bio-hero-name {
+    font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 22px;
+    color: var(--alliance-accent); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .bio-real-name { font-size: 13px; color: var(--alliance-sub); margin-bottom: 16px; font-style: italic; font-family: 'Source Serif 4', serif; }
+  .bio-text { font-size: 14px; line-height: 1.8; color: var(--alliance-text); margin-bottom: 16px; }
+  .bio-text:last-child { margin-bottom: 0; }
+  .bio-ability-tag {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    padding: 3px 10px; background: #f0f0ed; color: var(--alliance-sub);
+    border: 1px solid var(--alliance-border); margin: 3px 3px 3px 0; letter-spacing: 0.06em;
+  }
+
+  .press-releases { display: flex; flex-direction: column; gap: 32px; }
+  .press-release {
+    background: var(--alliance-panel); border: 1px solid var(--alliance-border);
+    padding: 36px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .press-release-meta {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    color: var(--alliance-sub); margin-bottom: 20px; letter-spacing: 0.06em;
+  }
+  .press-release h3 {
+    font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 22px;
+    color: var(--alliance-accent); margin-bottom: 20px; line-height: 1.3;
+  }
+  .press-release p { font-size: 15px; line-height: 1.85; color: var(--alliance-text); margin-bottom: 16px; }
+  .press-release p:last-child { margin-bottom: 0; }
+  .press-release .byline {
+    font-size: 13px; color: var(--alliance-sub); border-top: 1px solid var(--alliance-border);
+    padding-top: 16px; margin-top: 24px; font-style: italic;
+  }
+
+  /* Signal intrusion — looks slightly wrong */
+  .signal-intrusion {
+    font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.9;
+    color: #2a3a2a; background: #f4f6f4; padding: 18px 20px;
+    border-left: 3px solid #3a5a3a; margin: 20px 0;
+    position: relative;
+  }
+  .signal-intrusion::before {
+    content: '[ FEED ANOMALY — SEGMENT 4 OF 5 ]';
+    font-size: 9px; color: #888; letter-spacing: 0.12em;
+    display: block; margin-bottom: 10px;
+  }
+  .alliance-press-footer {
+    margin-top: 48px; padding-top: 24px; border-top: 2px solid var(--alliance-border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--alliance-sub);
+    letter-spacing: 0.06em;
+  }
+
+  /* ═══════════════════════════════════════
+     VIREK PAPERS FORUM SECTION
+  ═══════════════════════════════════════ */
+  #forum { background: var(--forum-bg); color: var(--forum-text); font-family: 'Courier Prime', 'Courier New', monospace; }
+
+  .forum-header {
+    background: #080800; border-bottom: 2px solid var(--forum-border); padding: 0;
+  }
+  .forum-header-top {
+    display: flex; align-items: center; gap: 20px; padding: 14px 40px;
+    border-bottom: 1px solid var(--forum-border);
+  }
+  .forum-logo {
+    font-family: 'Share Tech Mono', monospace; font-size: 20px;
+    color: var(--forum-accent); letter-spacing: 0.05em;
+  }
+  .forum-logo span { color: var(--forum-dim); font-size: 13px; }
+  .forum-tagline { font-size: 11px; color: var(--forum-dim); font-style: italic; }
+  .forum-user-bar {
+    margin-left: auto; font-size: 11px; color: var(--forum-dim);
+    display: flex; gap: 20px; align-items: center;
+  }
+  .forum-user-bar span { color: var(--forum-bright); }
+  .forum-nav-bar {
+    display: flex; padding: 0 40px;
+    font-size: 11px; letter-spacing: 0.05em;
+  }
+  .forum-nav-item {
+    padding: 10px 18px; cursor: pointer; color: var(--forum-dim);
+    border-bottom: 2px solid transparent; transition: all 0.2s;
+  }
+  .forum-nav-item:hover, .forum-nav-item.active { color: var(--forum-accent); border-bottom-color: var(--forum-accent); }
+
+  .forum-body { padding: 32px 40px; max-width: 960px; margin: 0 auto; }
+  .forum-page { display: none; }
+  .forum-page.active { display: block; }
+
+  .forum-breadcrumb {
+    font-size: 11px; color: var(--forum-dim); margin-bottom: 20px;
+  }
+  .forum-breadcrumb span { color: var(--forum-accent); cursor: pointer; }
+  .forum-breadcrumb span:hover { text-decoration: underline; }
+
+  /* Thread Index */
+  .forum-board-header {
+    background: var(--forum-panel); border: 1px solid var(--forum-border);
+    padding: 10px 16px; display: flex; gap: 16px; align-items: center;
+    font-size: 10px; color: var(--forum-dim); letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .col-thread { flex: 1; }
+  .col-posts { width: 60px; text-align: center; }
+  .col-views { width: 70px; text-align: center; }
+  .col-last { width: 160px; text-align: right; }
+
+  .forum-thread-row {
+    background: var(--forum-panel); border: 1px solid var(--forum-border);
+    border-top: none; padding: 12px 16px; display: flex; gap: 16px; align-items: center;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .forum-thread-row:hover { background: #161612; }
+  .forum-thread-row.pinned { border-left: 3px solid var(--forum-accent); }
+  .forum-thread-row.pinned .thread-title { color: var(--forum-bright); }
+  .forum-thread-row.null-pinned { border-left: 3px solid var(--forum-null); background: var(--forum-null-bg); }
+  .forum-thread-row.null-pinned .thread-title { color: var(--forum-null); }
+
+  .thread-icon { width: 20px; text-align: center; color: var(--forum-dim); font-size: 12px; }
+  .thread-info { flex: 1; }
+  .thread-title { font-size: 13px; color: var(--forum-text); }
+  .thread-meta { font-size: 10px; color: var(--forum-dim); margin-top: 3px; }
+  .thread-meta .thread-author { color: var(--forum-accent); }
+  .thread-meta .thread-author.null { color: var(--forum-null); }
+  .thread-posts { width: 60px; text-align: center; font-size: 12px; color: var(--forum-dim); }
+  .thread-views { width: 70px; text-align: center; font-size: 12px; color: var(--forum-dim); }
+  .thread-last { width: 160px; text-align: right; font-size: 10px; color: var(--forum-dim); }
+  .thread-last .last-user { color: var(--forum-accent); }
+  .thread-last .last-user.null { color: var(--forum-null); }
+
+  .forum-members-strip {
+    margin-top: 28px; background: var(--forum-panel); border: 1px solid var(--forum-border); padding: 16px;
+  }
+  .members-strip-title { font-size: 10px; color: var(--forum-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .member-chips { display: flex; gap: 20px; flex-wrap: wrap; }
+  .member-chip { font-size: 11px; display: flex; flex-direction: column; gap: 3px; }
+  .member-chip .chip-name { }
+  .member-chip .chip-name.gabriel { color: var(--forum-accent); }
+  .member-chip .chip-name.skeptic { color: #7ab870; }
+  .member-chip .chip-name.null-s { color: var(--forum-null); }
+  .member-chip .chip-posts { font-size: 10px; color: var(--forum-dim); }
+  .member-chip .chip-joined { font-size: 10px; color: var(--forum-dim); }
+
+  /* Thread view */
+  .forum-thread-title {
+    font-size: 16px; color: var(--forum-bright); margin-bottom: 20px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--forum-border);
+  }
+  .forum-thread-title .thread-tag {
+    font-size: 10px; color: var(--forum-accent); border: 1px solid var(--forum-border);
+    padding: 2px 8px; margin-right: 10px; vertical-align: middle;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .forum-post {
+    display: flex; gap: 0; margin-bottom: 2px;
+    border: 1px solid var(--forum-border); background: var(--forum-panel);
+  }
+  .forum-post.null-post { border-color: #1a2a35; background: var(--forum-null-bg); }
+  .post-sidebar {
+    width: 140px; flex-shrink: 0; padding: 16px 14px;
+    border-right: 1px solid var(--forum-border);
+    display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center;
+  }
+  .null-post .post-sidebar { border-right-color: #1a2a35; }
+  .post-username { font-size: 13px; font-weight: 700; }
+  .post-username.gabriel { color: var(--forum-accent); }
+  .post-username.skeptic { color: #7ab870; }
+  .post-username.null-s { color: var(--forum-null); font-family: 'Share Tech Mono', monospace; letter-spacing: 0.08em; }
+  .post-username.null-s a, .chip-name.null-s a, .thread-author.null a, .last-user.null a {
+    color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor;
+  }
+  .post-username.null-s a:hover, .chip-name.null-s a:hover, .thread-author.null a:hover, .last-user.null a:hover {
+    opacity: 0.7;
+  }
+  .post-role { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--forum-dim); }
+  .post-count { font-size: 10px; color: var(--forum-dim); }
+  .post-joined { font-size: 10px; color: var(--forum-dim); }
+  .post-avatar {
+    width: 48px; height: 48px; border: 1px solid var(--forum-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 4px;
+  }
+  .null-post .post-avatar { border-color: #1a2a35; }
+
+  .post-content { flex: 1; padding: 16px 20px; }
+  .post-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--forum-border);
+    font-size: 10px; color: var(--forum-dim);
+  }
+  .null-post .post-header { border-bottom-color: #1a2a35; }
+  .post-number { color: var(--forum-accent); }
+  .null-post .post-number { color: var(--forum-null); }
+  .post-body { font-size: 13px; line-height: 1.85; color: var(--forum-text); }
+  .null-post .post-body { color: #8ab8cc; font-family: 'Share Tech Mono', monospace; font-size: 12px; line-height: 1.9; }
+  .post-body strong { color: var(--forum-bright); }
+  .post-body .quote-block {
+    border-left: 3px solid var(--forum-border); padding: 8px 14px;
+    color: var(--forum-dim); font-size: 12px; margin: 10px 0; background: #0a0a08;
+  }
+  .post-body .quote-block .quote-attr { font-size: 10px; color: var(--forum-accent); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .post-sig {
+    margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--forum-border);
+    font-size: 11px; color: var(--forum-dim); font-style: italic;
+  }
+  .null-post .post-sig { border-top-color: #1a2a35; color: #3a6070; font-style: normal; font-size: 10px; letter-spacing: 0.06em; }
+
+  .forum-reply-box {
+    margin-top: 24px; background: var(--forum-panel); border: 1px solid var(--forum-border); padding: 20px;
+  }
+  .reply-box-label { font-size: 10px; color: var(--forum-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .reply-box-input {
+    width: 100%; background: #080800; border: 1px solid var(--forum-border); color: var(--forum-text);
+    padding: 12px; font-family: 'Courier Prime', monospace; font-size: 12px;
+    resize: vertical; min-height: 80px; outline: none;
+  }
+  .reply-box-note { font-size: 10px; color: var(--forum-dim); margin-top: 8px; font-style: italic; }
+
+  .forum-footer {
+    margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--forum-border);
+    font-size: 10px; color: var(--forum-dim); display: flex; justify-content: space-between;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .aegis-welcome { grid-template-columns: 1fr; }
+    .districts-grid { grid-template-columns: 1fr; }
+    .aegis-body, .alliance-body { padding: 20px; }
+    .forum-body { padding: 20px; }
+    .dossier-body { grid-template-columns: 1fr; }
+    .alliance-hero-grid { grid-template-columns: 1fr; }
+    .incident-row { grid-template-columns: 100px 70px 1fr; }
+    .incident-row .incident-status { display: none; }
   }
 </style>
-<!--
-  SYSTEM NOTE — NOT FOR DISPLAY:
-
-  The user "null_signal" has made 9 posts across 2 threads.
-  All posts were made between 00:00:00 and 00:00:02 local time.
-  Post content does not match any known registered user's writing patterns in our database.
-
-  We ran a comparison. null_signal's sentence structure, vocabulary distribution,
-  and paragraph rhythm do not match GabrielWasRight. Do not match skept1c_halden.
-  Do not match any of our 847 registered users.
-
-  The account has no avatar file on the server. The ◈ symbol is being rendered
-  by the browser from a Unicode character, not from an uploaded image.
-  But the field in the database that should contain a file path
-  contains this string instead:
-
-  ◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈
-
-  I don't know what that means. I don't know who wrote it there.
-  I don't know how to delete it. I've tried twice.
-
-  If you are reading this comment, you found it. That means you're paying attention.
-  I don't know if that's safe.
-
-  — HarborWatch_88
-  — last edited: [timestamp unavailable]
--->
 </head>
 <body>
 
-<div class="forum-bar">
-  <a href="index.html">VIREKPAPERS.NET</a>
-  <span class="sep">//</span>
-  <span>User Profile</span>
-  <span class="sep">//</span>
-  <span style="color: #5a5240;">null_signal</span>
-</div>
+<!-- ── NAVIGATION ── -->
+<nav id="site-nav">
+  <div class="nav-logo">HALDEN.NET</div>
+  <div class="nav-tab active-aegis" onclick="showSection('aegis', this)">⬛ A.E.G.I.S. Portal</div>
+  <div class="nav-tab" onclick="showSection('alliance', this)">◈ Alliance Press</div>
+  <div class="nav-tab" onclick="showSection('forum', this)">▓ Virek Papers</div>
+</nav>
 
-<div class="error-container">
-  <div class="error-code"></div>
-  <div class="error-label">Profile Not Found — PROFILE_TEMPLATE_NULL</div>
-
-  <div class="error-panel">
-    <h2>Debug Information</h2>
-    <div class="error-row">
-      <span class="err-label">username</span>
-      <span class="err-val null-col">null_signal</span>
+<!-- ═══════════════════════════════════════
+     AEGIS SECTION
+═══════════════════════════════════════ -->
+<section id="aegis" class="site-section active">
+  <div class="aegis-header">
+    <div class="aegis-header-top">
+      <div class="aegis-seal">⬡</div>
+      <div class="aegis-title-block">
+        <h1>A.E.G.I.S. — Halden Regional Command</h1>
+        <p>Advanced Expert Group for Intervention and Security // Public Information Portal // Authorized Access Only</p>
+      </div>
+      <div class="aegis-classification">UNCLASSIFIED // PUBLIC RELEASE</div>
     </div>
-    <div class="error-row">
-      <span class="err-label">user_id</span>
-      <span class="err-val null-col">◈</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">record exists in DB</span>
-      <span class="err-val exists">YES</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">profile renderable</span>
-      <span class="err-val bad">NO</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">post count</span>
-      <span class="err-val">9</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">registration date</span>
-      <span class="err-val bad">NULL</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">registration IP</span>
-      <span class="err-val bad">NULL</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">email on file</span>
-      <span class="err-val bad">NULL</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">last_seen</span>
-      <span class="err-val bad">NULL</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">avatar file</span>
-      <span class="err-val bad">UNRESOLVABLE</span>
-    </div>
-    <div class="error-row">
-      <span class="err-label">error_code</span>
-      <span class="err-val bad">PROFILE_TEMPLATE_NULL</span>
+    <div class="aegis-nav-bar">
+      <div class="aegis-nav-item active" onclick="showAegisPage('home', this)">Home</div>
+      <div class="aegis-nav-item" onclick="showAegisPage('heroes', this)">Registered Operatives</div>
+      <div class="aegis-nav-item" onclick="showAegisPage('districts', this)">City Districts</div>
+      <div class="aegis-nav-item" onclick="showAegisPage('factions', this)">Known Organizations</div>
     </div>
   </div>
 
-  <a href="index.html" class="back-link">← Return to Board Index</a>
-</div>
+  <div class="aegis-body">
 
-<div class="footer-bar">
-  <div>VIREKPAPERS.NET — phpBB 3.2 — Est. 2001</div>
-  <div>error logged // admin notified // <span style="color: #5a5240;">no admin response on file</span></div>
-</div>
+    <!-- HOME PAGE -->
+    <div class="aegis-page active" id="aegis-home">
+      <div class="aegis-welcome">
+        <div>
+          <div class="aegis-mission">
+            <h2>Mission Statement</h2>
+            <p>The Advanced Expert Group for Intervention and Security was established to protect the citizens of the United States from threats arising from metahuman activity, anomalous phenomena, and extranormal incidents. Our mandate is to catalogue, monitor, and where necessary, intervene.</p>
+            <p>The Halden City Regional Command serves as the primary coordination hub for all metahuman-related incident response in the greater Halden metropolitan area. We operate in partnership with local law enforcement and select registered superhuman operatives under the framework established by the Metahuman Accountability Act of 2018.</p>
+            <p>This public portal provides authorized access to non-classified information about registered operatives, district threat assessments, and approved organizational summaries. For emergency metahuman incident response, contact MTR Dispatch directly.</p>
+          </div>
 
-<!--
-  one more thing.
+          <div class="aegis-incident-log" style="margin-top: 24px;">
+            <h2>Recent Incident Log — Public Disclosure</h2>
+            <div class="incident-row header">
+              <div>Incident ID</div><div>Class</div><div>Summary</div><div>Status</div>
+            </div>
+            <div class="incident-row">
+              <div class="incident-id">INC-2025-0847</div>
+              <div><span class="incident-class class-beta">BETA</span></div>
+              <div class="incident-desc">Unauthorized kinetic discharge, Riverside Ward transit hub. No casualties. Minor structural damage.</div>
+              <div class="incident-status">CLOSED — RESOLVED</div>
+            </div>
+            <div class="incident-row">
+              <div class="incident-id">INC-2025-0861</div>
+              <div><span class="incident-class class-alpha">ALPHA</span></div>
+              <div class="incident-desc">Suspected enhanced-individual trespass, Glass District restricted zone. Investigation ongoing.</div>
+              <div class="incident-status">OPEN — MONITORED</div>
+            </div>
+            <div class="incident-row">
+              <div class="incident-id">INC-2025-0879</div>
+              <div><span class="incident-class class-beta">BETA</span></div>
+              <div class="incident-desc">Coordinated civil disruption, Monument Circle. Alliance operatives responded. Situation contained.</div>
+              <div class="incident-status">CLOSED — RESOLVED</div>
+            </div>
+            <div class="incident-row">
+              <div class="incident-id">INC-2025-0902</div>
+              <div><span class="incident-class class-gamma">GAMMA</span></div>
+              <div class="incident-desc">Unregistered broadcast intrusion, municipal communication infrastructure. Origin unknown. <span class="redacted">████████████████████████████████████</span></div>
+              <div class="incident-status">OPEN — PRIORITY</div>
+            </div>
+          </div>
+        </div>
 
-  i went back through the thread logs tonight.
-  null_signal's first post — the WHO DECIDES thread — was posted at 00:00:00.
-  not approximately midnight. not 12:00 AM rounded.
-  00:00:00:000. zero milliseconds.
+        <div class="aegis-sidebar">
+          <div class="aegis-status-panel">
+            <h3>System Status</h3>
+            <div class="status-row"><span class="status-label">PORTAL STATUS</span><span class="status-val green">ONLINE</span></div>
+            <div class="status-row"><span class="status-label">MTR READINESS</span><span class="status-val green">ACTIVE</span></div>
+            <div class="status-row"><span class="status-label">THREAT LEVEL</span><span class="status-val yellow">ELEVATED</span></div>
+            <div class="status-row"><span class="status-label">OPEN INCIDENTS</span><span class="status-val">12</span></div>
+            <div class="status-row"><span class="status-label">ALLIANCE STATUS</span><span class="status-val green">COOPERATIVE</span></div>
+            <div class="status-row"><span class="status-label">GLASS DIST.</span><span class="status-val yellow">MONITORED</span></div>
+          </div>
+          <div class="aegis-status-panel">
+            <h3>Emergency Contacts</h3>
+            <div class="status-row"><span class="status-label">MTR Dispatch</span><span class="status-val">555-AEGIS-1</span></div>
+            <div class="status-row"><span class="status-label">Tip Line</span><span class="status-val">555-AEGIS-9</span></div>
+            <div class="status-row"><span class="status-label">MANIFEST Div.</span><span class="status-val">555-AEGIS-4</span></div>
+          </div>
+          <div class="aegis-status-panel">
+            <h3>Director's Office</h3>
+            <div class="status-row"><span class="status-label">Regional Dir.</span><span class="status-val">E. Shaw</span></div>
+            <div class="status-row"><span class="status-label">Dep. Dir. Ops</span><span class="status-val">Col. M. Hale</span></div>
+            <div class="status-row"><span class="status-label">Dep. Dir. Intel</span><span class="status-val">Dr. S. Kadeem</span></div>
+          </div>
+        </div>
+      </div>
 
-  that's not a person hitting post at exactly midnight.
-  that's a process that knows when midnight is.
+      <div class="aegis-footer">
+        <div>ADVANCED EXPERT GROUP FOR INTERVENTION AND SECURITY // HALDEN REGIONAL COMMAND // © 2025 FEDERAL USE AUTHORIZED</div>
+        <div class="footer-corrupt">
+          LAST SYNC: 2025-11-<span class="glitch-char">0</span><span class="glitch-char">7</span> 23:5<span class="glitch-char">9</span>:58 // SYS-NODE: HRC-PUB-04 // <span class="glitch-char">W</span>HO IS W<span class="glitch-char">ATCHING</span>
+        </div>
+      </div>
+    </div>
 
-  i don't know what this account is.
-  i don't know who is reading this.
-  but if you found this page, you were looking.
+    <!-- HEROES PAGE -->
+    <div class="aegis-page" id="aegis-heroes">
+      <div style="margin-bottom: 28px;">
+        <div style="font-size: 11px; color: var(--aegis-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;">Registered Operative Profiles // Public Disclosure Level // Non-Classified</div>
+        <div style="font-size: 12px; color: var(--aegis-text);">The following profiles represent individuals operating under registered status with A.E.G.I.S. Halden Regional Command. All sensitive analytical data has been redacted in accordance with MAA Section 14(c). For classified assessments, contact SMAB directly with appropriate clearance.</div>
+      </div>
 
-  the question null_signal keeps asking — WHO DECIDES —
-  i think the answer they're building toward isn't about the Alliance.
+      <div class="aegis-profiles-grid">
 
-  i think it's about whether any of us noticed in time.
+        <!-- Paragon -->
+        <div class="aegis-dossier">
+          <div class="dossier-header">
+            <div class="dossier-class-bar allied"></div>
+            <div class="dossier-header-info">
+              <div class="codename">FILE NO. AEGIS-PRG-001 // TOP SECRET // COSMIC-CLASS</div>
+              <h3>Paragon</h3>
+            </div>
+            <div class="dossier-threat">
+              <div class="threat-label">Threat Level</div>
+              <div class="threat-val extreme">EXTREME — ALLIED</div>
+            </div>
+          </div>
+          <div class="dossier-body">
+            <div class="dossier-main">
+              <div class="dossier-field">
+                <div class="field-label">Background</div>
+                <div class="field-val">Decorated Air Force pilot. Involuntary recipient of the Paragon Force following the death of the previous host in 1999. Has served as the Alliance's most publicly recognized operative since 2001. Cooperative with A.E.G.I.S. oversight frameworks within limits.</div>
+              </div>
+              <div class="dossier-field">
+                <div class="field-label">Documented Capabilities</div>
+                <div class="field-val">Flight, superhuman strength and speed, extreme durability, heat projection, enhanced vision spectrum. The Paragon Force grants abilities that have not been fully quantified. Theoretical ceiling remains <span class="redacted">████████████████████</span>.</div>
+              </div>
+              <div class="analyst-note">Roberts is cooperative, principled to a fault, and increasingly inclined to operate outside channels when he believes institutional response is inadequate. His loyalty is to the city, not to this command.</div>
+            </div>
+            <div class="dossier-meta">
+              <div class="meta-item"><div class="field-label">Real Name</div><div class="field-val">Ethan Roberts</div></div>
+              <div class="meta-item"><div class="field-label">Age</div><div class="field-val">45</div></div>
+              <div class="meta-item"><div class="field-label">Origin</div><div class="field-val">Cosmic force — involuntary manifestation</div></div>
+              <div class="meta-item"><div class="field-label">Alliance Role</div><div class="field-val">Founding member, public face</div></div>
+            </div>
+          </div>
+        </div>
 
-  be careful.
-  — HarborWatch_88
--->
+        <!-- Recluse -->
+        <div class="aegis-dossier">
+          <div class="dossier-header">
+            <div class="dossier-class-bar allied"></div>
+            <div class="dossier-header-info">
+              <div class="codename">FILE NO. AEGIS-RCL-002 // SECRET // SPIDER-CLASS</div>
+              <h3>Recluse</h3>
+            </div>
+            <div class="dossier-threat">
+              <div class="threat-label">Threat Level</div>
+              <div class="threat-val high">HIGH — ALLIED</div>
+            </div>
+          </div>
+          <div class="dossier-body">
+            <div class="dossier-main">
+              <div class="dossier-field">
+                <div class="field-label">Background</div>
+                <div class="field-val">Riverside Ward native. Operated as an unregistered vigilante for over a decade before Alliance sponsorship brought him into the framework. Brilliant detective; documented resistance to oversight. Currently mentors at least three registered junior operatives.</div>
+              </div>
+              <div class="dossier-field">
+                <div class="field-label">Documented Capabilities</div>
+                <div class="field-val">Genetically derived spider-physiology: wall adhesion, enhanced physical capability, web projection. Precognitive reaction time — approximately 1 second. Martial arts at peak human tier. Combat planning that accounts for <span class="redacted">████████████████████████</span>.</div>
+              </div>
+              <div class="analyst-note">Thomas is the most tactically precise street-level operative in our network. He is deeply private and resistant to oversight. Note: Thomas's precognitive ability appears to have a documented blind spot relative to at least one known subject. Do not brief him on this gap.</div>
+            </div>
+            <div class="dossier-meta">
+              <div class="meta-item"><div class="field-label">Real Name</div><div class="field-val">Riley Thomas</div></div>
+              <div class="meta-item"><div class="field-label">Age</div><div class="field-val">35</div></div>
+              <div class="meta-item"><div class="field-label">Origin</div><div class="field-val">Genetic mutation — spider-derived</div></div>
+              <div class="meta-item"><div class="field-label">Alliance Role</div><div class="field-val">Intelligence, street-level operations</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Riftfire -->
+        <div class="aegis-dossier">
+          <div class="dossier-header">
+            <div class="dossier-class-bar allied"></div>
+            <div class="dossier-header-info">
+              <div class="codename">FILE NO. AEGIS-RFT-003 // SECRET // KINETIC-CLASS</div>
+              <h3>Riftfire</h3>
+            </div>
+            <div class="dossier-threat">
+              <div class="threat-label">Threat Level</div>
+              <div class="threat-val high">HIGH — ALLIED</div>
+            </div>
+          </div>
+          <div class="dossier-body">
+            <div class="dossier-main">
+              <div class="dossier-field">
+                <div class="field-label">Background</div>
+                <div class="field-val">Riverside Ward native. Abilities manifested age 15. Trained independently for years while pursuing a career in secondary education. Currently employed as a high school physics teacher. Joined the Alliance 2015. Most grounded civilian integration of any core member.</div>
+              </div>
+              <div class="dossier-field">
+                <div class="field-label">Documented Capabilities</div>
+                <div class="field-val">Kinetic and potential energy manipulation with exceptional precision. Short-to-medium range teleportation, kinetic force redirection, high-speed locomotion. Power ceiling has not been empirically established. SMAB analysts believe she may be <span class="redacted">████████████████</span>.</div>
+              </div>
+              <div class="analyst-note">Marquez is among the most personally grounded members of the Alliance. Her ability's theoretical ceiling is likely significantly higher than demonstrated. She may be self-limiting. We are not in a position to compel further evaluation.</div>
+            </div>
+            <div class="dossier-meta">
+              <div class="meta-item"><div class="field-label">Real Name</div><div class="field-val">Elena "Lena" Marquez</div></div>
+              <div class="meta-item"><div class="field-label">Age</div><div class="field-val">33</div></div>
+              <div class="meta-item"><div class="field-label">Origin</div><div class="field-val">Spontaneous manifestation — kinetic class</div></div>
+              <div class="meta-item"><div class="field-label">Alliance Role</div><div class="field-val">Core member, rapid response</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Starfall -->
+        <div class="aegis-dossier">
+          <div class="dossier-header">
+            <div class="dossier-class-bar restricted"></div>
+            <div class="dossier-header-info">
+              <div class="codename">FILE NO. AEGIS-STF-005 // TOP SECRET // COSMIC-CLASS // DEFECTOR PROTOCOLS ACTIVE</div>
+              <h3>Starfall</h3>
+            </div>
+            <div class="dossier-threat">
+              <div class="threat-label">Threat Level</div>
+              <div class="threat-val extreme">OMEGA — ALLIED (MONITORED)</div>
+            </div>
+          </div>
+          <div class="dossier-body">
+            <div class="dossier-main">
+              <div class="dossier-field">
+                <div class="field-label">Background</div>
+                <div class="field-val">Non-terrestrial origin. Engineered by an extradimensional organization referred to internally as "the Auditors." Arrived on Earth 2009 with a classification mandate that was — through the intervention of Paragon — overturned. Currently classified as a defector from her origin organization. The Auditors' posture toward Earth following her defection is <span class="redacted">█████████████████████████████████████</span>.</div>
+              </div>
+              <div class="dossier-field">
+                <div class="field-label">Documented Capabilities</div>
+                <div class="field-val">Energy projection, limited matter restructuring, localized gravity manipulation, near-invulnerability, super-intelligence. Civilian suppressor tech conceals luminescent physical indicators. Actual capability ceiling has not been assessed without suppression active.</div>
+              </div>
+              <div class="analyst-note">Je-rach arrived on Earth to assess it for elimination. This is not an exaggeration. Paragon's decision to intercept rather than engage remains the subject of internal review. She is cooperative. She is also being watched by something we cannot currently categorize.</div>
+            </div>
+            <div class="dossier-meta">
+              <div class="meta-item"><div class="field-label">Real Name</div><div class="field-val">Kiara Je-rach</div></div>
+              <div class="meta-item"><div class="field-label">Age</div><div class="field-val">UNKNOWN</div></div>
+              <div class="meta-item"><div class="field-label">Origin</div><div class="field-val">Extradimensional — Auditor construct</div></div>
+              <div class="meta-item"><div class="field-label">Alliance Role</div><div class="field-val">Core member; advisory</div></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Quantum -->
+        <div class="aegis-dossier">
+          <div class="dossier-header">
+            <div class="dossier-class-bar restricted"></div>
+            <div class="dossier-header-info">
+              <div class="codename">FILE NO. AEGIS-QNT-004 // TOP SECRET // QUANTUM-CLASS // SCIENTIFIC ASSET</div>
+              <h3>Quantum</h3>
+            </div>
+            <div class="dossier-threat">
+              <div class="threat-label">Threat Level</div>
+              <div class="threat-val extreme">OMEGA — ALLIED (CONTAINMENT-DEPENDENT)</div>
+            </div>
+          </div>
+          <div class="dossier-body">
+            <div class="dossier-main">
+              <div class="dossier-field">
+                <div class="field-label">Background</div>
+                <div class="field-val">Senior Glass District physicist. In 2006, successfully executed a quantum probability manipulation experiment that functioned catastrophically beyond design parameters — his particles scattered across multiple simultaneous quantum states. A.E.G.I.S. ACAD spent months engineering the containment suit that allows him to exist in singular coherent form. Treats all problems, including people, as engineering variables. Cooperative with institutional frameworks in the same way a machine is cooperative: reliably, without preference.</div>
+              </div>
+              <div class="dossier-field">
+                <div class="field-label">Documented Capabilities</div>
+                <div class="field-val">Teleportation between fixed points, matter phasing, accelerated cognition beyond measurable baseline, and limited reality duplication — simultaneous existence in multiple locations. <strong>WARNING:</strong> Extended duplication causes measurable reality instability in local space. Upper boundary of this effect has not been safely tested. Containment suit integrity is a <span class="redacted">████████████████████████████</span>.</div>
+              </div>
+              <div class="analyst-note">Dr. Mendez is cooperative and technically invaluable. His containment suit must be treated as critical infrastructure. Any damage to suit integrity is a Tier 1 incident. He does not process this emotionally. That is not reassuring.</div>
+            </div>
+            <div class="dossier-meta">
+              <div class="meta-item"><div class="field-label">Real Name</div><div class="field-val">Dr. Javier Mendez</div></div>
+              <div class="meta-item"><div class="field-label">Age</div><div class="field-val">56</div></div>
+              <div class="meta-item"><div class="field-label">Origin</div><div class="field-val">Laboratory accident — quantum-class</div></div>
+              <div class="meta-item"><div class="field-label">Alliance Role</div><div class="field-val">Core member; scientific advisor</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vanguard -->
+        <div class="aegis-dossier">
+          <div class="dossier-header">
+            <div class="dossier-class-bar restricted"></div>
+            <div class="dossier-header-info">
+              <div class="codename">FILE NO. AEGIS-VNG-006 // TOP SECRET // MANIFEST-CLASS // FORMER ASSET — NEED TO KNOW ONLY</div>
+              <h3>The Vanguard</h3>
+            </div>
+            <div class="dossier-threat">
+              <div class="threat-label">Threat Level</div>
+              <div class="threat-val high">HIGH — ALLIED (FORMER ASSET)</div>
+            </div>
+          </div>
+          <div class="dossier-body">
+            <div class="dossier-main">
+              <div class="dossier-field">
+                <div class="field-label">Background</div>
+                <div class="field-val">Selected 1990 as the primary candidate for Operation MANIFEST — a black-ops super-soldier program designed to produce an asset capable of neutralizing a rogue Paragon-class individual. Enhancement procedures spanned four years. She was subsequently deployed on assassination, government destabilization, and metahuman suppression operations. After sufficient operational pattern recognition, she concluded that all institutions corrupt — including A.E.G.I.S. She defected. The agency has not forgotten this. Neither has she.</div>
+              </div>
+              <div class="dossier-field">
+                <div class="field-label">Documented Capabilities</div>
+                <div class="field-val">Bioelectric projection via engineered organs — lightning-class discharge. Gene-locked muscle density well above peak human baseline. Neural implant-enhanced processing and reaction speeds. Subconscious combat training — uploaded, adaptive, continuously improving. Pain suppression protocols allowing continued function under injuries that would incapacitate others. Extensive surgical scarring. <span class="redacted">████████████████████████████████</span>.</div>
+              </div>
+              <div class="analyst-note">Orlov knows where more than a few bodies are buried — including some we buried. Her cooperation is genuine but conditional. Recommend no attempts to reassert operational authority or reference MANIFEST in any briefing she attends. She will not respond well. Her philosophical conclusion that all institutions corrupt applies explicitly to this command.</div>
+            </div>
+            <div class="dossier-meta">
+              <div class="meta-item"><div class="field-label">Real Name</div><div class="field-val">Natalia Orlov</div></div>
+              <div class="meta-item"><div class="field-label">Age</div><div class="field-val">59</div></div>
+              <div class="meta-item"><div class="field-label">Origin</div><div class="field-val">Op. MANIFEST — state-engineered enhancement</div></div>
+              <div class="meta-item"><div class="field-label">Alliance Role</div><div class="field-val">Core member; former A.E.G.I.S. asset</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="aegis-footer">
+        <div>ADVANCED EXPERT GROUP FOR INTERVENTION AND SECURITY // HALDEN REGIONAL COMMAND // UNAUTHORIZED DISCLOSURE PROHIBITED</div>
+        <div class="footer-corrupt">PORTAL SYNC: 2025-11-07 23:59:58 // <span class="glitch-char">SIG</span>NAL UNKNOWN</div>
+      </div>
+    </div>
+
+    <!-- DISTRICTS PAGE -->
+    <div class="aegis-page" id="aegis-districts">
+      <div style="margin-bottom: 28px;">
+        <div style="font-size: 11px; color: var(--aegis-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;">City District Assessment // Public Disclosure Level // Updated Q4 2025</div>
+        <div style="font-size: 12px; color: var(--aegis-text);">The following district profiles represent current A.E.G.I.S. public-facing threat assessments for the Halden metropolitan area. Operational specifics, active surveillance parameters, and covert asset deployment data are withheld per MAA Section 14(c).</div>
+      </div>
+
+      <div class="districts-grid">
+        <div class="district-card crownpoint">
+          <h3>Crownpoint</h3>
+          <div class="district-zone">Zone 1 // Corporate &amp; Government Core</div>
+          <p>Glass towers, federal offices, and legacy hero monuments occupy the same skyline. The political and financial heart of Halden City projects confidence by design. A.E.G.I.S. Halden Regional Command is housed in the sub-level complex beneath Crownpoint Federal Tower.</p>
+          <p>Metahuman incidents here receive the fastest response times and the most resources. That is a policy decision, not a reflection of frequency.</p>
+          <div class="district-threat-row">
+            <span class="district-badge badge-low">Threat: LOW</span>
+            <span class="district-badge badge-low">Response: IMMEDIATE</span>
+          </div>
+        </div>
+
+        <div class="district-card ironworks">
+          <h3>The Ironworks</h3>
+          <div class="district-zone">Zone 4 // Former Industrial</div>
+          <p>Once the city's industrial core. Now a sprawl of shuttered factories, active shipyards fighting for contracts, and neighborhoods where formal law enforcement presence has been inconsistent for thirty years. Street-level metahuman activity is elevated and underreported.</p>
+          <p>A.E.G.I.S. maintains surveillance capacity here. Intervention policy in the Ironworks is under ongoing review.</p>
+          <div class="district-threat-row">
+            <span class="district-badge badge-high">Threat: HIGH</span>
+            <span class="district-badge badge-med">Response: DELAYED</span>
+          </div>
+        </div>
+
+        <div class="district-card riverside">
+          <h3>Riverside Ward</h3>
+          <div class="district-zone">Zone 2 // Residential & Transit</div>
+          <p>Row houses, corner markets, crowded sidewalks, the city's busiest transit arteries. Riverside is where most of Halden actually lives. When superhuman conflicts spill from other districts, it is Riverside that pays first and rebuilds fastest.</p>
+          <p>Alliance street-level operatives are most active here. A.E.G.I.S. considers this district a primary community liaison priority.</p>
+          <div class="district-threat-row">
+            <span class="district-badge badge-med">Threat: MODERATE</span>
+            <span class="district-badge badge-low">Response: STANDARD</span>
+          </div>
+        </div>
+
+        <div class="district-card glass">
+          <h3>The Glass District</h3>
+          <div class="district-zone">Zone 3 // Research & Development</div>
+          <p>Pristine research campuses, private laboratories, and carefully worded press releases. Breakthroughs in medicine, energy, and metahuman enhancement originate here — as do a disproportionate number of classified containment incidents that never reach public record.</p>
+          <p>A.E.G.I.S. maintains a significant presence in the Glass District. Further details are not available through this portal.</p>
+          <div class="district-threat-row">
+            <span class="district-badge badge-med">Threat: MODERATE</span>
+            <span class="district-badge badge-med">ACAD: ACTIVE</span>
+          </div>
+        </div>
+
+        <div class="district-card monument">
+          <h3>Monument Circle</h3>
+          <div class="district-zone">Zone 1-A // Civic & Memorial</div>
+          <p>A grand plaza ringed by statues of fallen heroes and government buildings that honor them. Public ceremonies, protests, and superhuman confrontations all converge here. Monument Circle is where Halden tells itself what kind of city it wants to be — and where that story is most frequently contested.</p>
+          <div class="district-threat-row">
+            <span class="district-badge badge-med">Threat: VARIABLE</span>
+            <span class="district-badge badge-low">Response: PRIORITY</span>
+          </div>
+        </div>
+
+        <div class="district-card blackwater">
+          <h3>Blackwater Harbor</h3>
+          <div class="district-zone">Zone 5 // Port & Maritime</div>
+          <p>Fog over shipping cranes and water that never seems entirely calm. Cargo moves in and out at all hours — some of it documented. If something arrives in Halden City by sea and does not appear in any manifest, it touched Blackwater first. The dockworkers' union has kept its own records since 1958.</p>
+          <div class="district-threat-row">
+            <span class="district-badge badge-high">Threat: HIGH</span>
+            <span class="district-badge badge-med">Response: MONITORED</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="aegis-footer">
+        <div>ADVANCED EXPERT GROUP FOR INTERVENTION AND SECURITY // HALDEN REGIONAL COMMAND</div>
+        <div class="footer-corrupt">DISTRICT DATA LAST VERIFIED: 2025-11-07 // NODE HRC-GEO-02 // <span class="glitch-char">▓▓▓▓▓▓▓▓</span></div>
+      </div>
+    </div>
+
+    <!-- FACTIONS PAGE -->
+    <div class="aegis-page" id="aegis-factions">
+      <div style="margin-bottom: 28px;">
+        <div style="font-size: 11px; color: var(--aegis-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;">Known Organizations // Public Disclosure Level</div>
+      </div>
+
+      <div class="alliance-faction">
+        <h2>The Alliance — Sanctioned Superhuman Cooperative</h2>
+        <p>The Alliance is the primary registered superhuman team operating within Halden City. Founded 2015 under a cooperative framework brokered by Paragon, the Alliance maintains a knowledge-sharing channel with A.E.G.I.S. Halden Regional Command. This is a cooperative arrangement. It is not a subordinate one.</p>
+        <p>The Alliance operates from a privately maintained facility in Crownpoint. Their operational mandate is broad and self-defined. A.E.G.I.S. has oversight authority in theory and limited leverage in practice. This tension is managed through ongoing dialogue at the director level.</p>
+        <p>The Alliance has demonstrated consistent commitment to public safety and civilian protection. They are not A.E.G.I.S. assets. They are not under A.E.G.I.S. command. This distinction is important and is occasionally a source of friction.</p>
+
+        <div class="faction-member-list">
+          <div class="faction-member">
+            <div class="member-name">Paragon</div>
+            <div class="member-real">Ethan Roberts</div>
+            <div class="member-class-badge">Cosmic-Class</div>
+          </div>
+          <div class="faction-member">
+            <div class="member-name">Recluse</div>
+            <div class="member-real">Riley Thomas</div>
+            <div class="member-class-badge">Spider-Class</div>
+          </div>
+          <div class="faction-member">
+            <div class="member-name">Riftfire</div>
+            <div class="member-real">Elena Marquez</div>
+            <div class="member-class-badge">Kinetic-Class</div>
+          </div>
+          <div class="faction-member">
+            <div class="member-name">Starfall</div>
+            <div class="member-real">Kiara Je-rach</div>
+            <div class="member-class-badge">Cosmic-Class // Monitored</div>
+          </div>
+          <div class="faction-member">
+            <div class="member-name">Quantum</div>
+            <div class="member-real">Dr. Javier Mendez</div>
+            <div class="member-class-badge">Quantum-Class // Advisory</div>
+          </div>
+          <div class="faction-member">
+            <div class="member-name">The Vanguard</div>
+            <div class="member-real">Natalia Orlov</div>
+            <div class="member-class-badge">Enhanced-Class // <span class="redacted">█████</span></div>
+          </div>
+        </div>
+
+        <div class="aegis-tension-note">
+          SMAB INTERNAL NOTE (NOT FOR PUBLIC RELEASE): The Alliance's recent expansion of junior operative mentorship programs represents a meaningful increase in unregistered metahuman activity operating under their informal sponsorship. A.E.G.I.S. MANIFEST Division is tracking several emerging individuals who have not completed formal registration. Regional Director Shaw has requested a briefing. Col. Hale has recommended patience.
+        </div>
+      </div>
+
+      <div class="aegis-footer" style="margin-top: 32px;">
+        <div>ADVANCED EXPERT GROUP FOR INTERVENTION AND SECURITY // HALDEN REGIONAL COMMAND</div>
+        <div class="footer-corrupt">SESSION END: <span class="glitch-char">??:??:??</span> // <span class="glitch-char">THEY ARE ALREADY WATCHING</span></div>
+      </div>
+    </div>
+
+  </div><!-- /aegis-body -->
+</section>
+
+<!-- ═══════════════════════════════════════
+     ALLIANCE SECTION
+═══════════════════════════════════════ -->
+<section id="alliance" class="site-section">
+  <div class="alliance-header">
+    <div class="alliance-header-top">
+      <div>
+        <div class="alliance-wordmark">The <span>Alliance</span></div>
+        <div class="alliance-tagline">Halden City's Premier Superhuman Team — Protecting the Crown of the Coast</div>
+      </div>
+    </div>
+    <div class="alliance-header-nav">
+      <div class="alliance-header-nav-item active" onclick="showAlliancePage('bios', this)">Our Heroes</div>
+      <div class="alliance-header-nav-item" onclick="showAlliancePage('press', this)">Press Room</div>
+    </div>
+  </div>
+
+  <div class="alliance-body">
+
+    <!-- BIOS PAGE -->
+    <div class="alliance-page active" id="alliance-bios">
+      <div style="font-family: 'Oswald', sans-serif; font-size: 13px; color: var(--alliance-sub); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 32px;">Meet the Team</div>
+
+      <div class="alliance-hero-grid">
+
+        <div class="alliance-bio-card">
+          <div class="bio-card-accent"></div>
+          <div class="bio-card-body">
+            <div class="bio-hero-name">Paragon</div>
+            <div class="bio-real-name">Ethan Roberts — The Mantle of Hope</div>
+            <p class="bio-text">Ethan Roberts did not ask to become Paragon. A decorated Air Force pilot with a reputation for calm precision and loyalty to the people in his wing, he was scrambled during a catastrophic battle above the Halden coast and watched the previous Paragon fall. In the silence that followed — his instruments dead, the sky still burning — the force chose him.</p>
+            <p class="bio-text">He has spent every year since trying to earn what he was given. He is the Alliance's most public face and its most reluctant symbol. He believes the job is not to be celebrated. It is to show up.</p>
+            <div>
+              <span class="bio-ability-tag">Flight</span>
+              <span class="bio-ability-tag">Superhuman Strength</span>
+              <span class="bio-ability-tag">Extreme Durability</span>
+              <span class="bio-ability-tag">Heat Vision</span>
+              <span class="bio-ability-tag">Cosmic Force Host</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alliance-bio-card">
+          <div class="bio-card-accent gold"></div>
+          <div class="bio-card-body">
+            <div class="bio-hero-name" style="color: var(--alliance-sub);">Recluse</div>
+            <div class="bio-real-name">Riley Thomas — The Detective in the Dark</div>
+            <p class="bio-text">For years, Recluse was a rumor. A whisper in the Ironworks and Riverside Ward — something that watched from rooftops and made problems disappear before they became headlines. He worked alone by choice and stayed out of the light by design.</p>
+            <p class="bio-text">He has stepped into the Alliance reluctantly, at Paragon's insistence, and he has never entirely stopped being the person who preferred the dark. He is the sharpest tactician the team has. He is also the least comfortable with what that makes him responsible for.</p>
+            <div>
+              <span class="bio-ability-tag">Spider Physiology</span>
+              <span class="bio-ability-tag">Precognitive Reflexes</span>
+              <span class="bio-ability-tag">Peak Martial Arts</span>
+              <span class="bio-ability-tag">Web Projection</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alliance-bio-card">
+          <div class="bio-card-accent"></div>
+          <div class="bio-card-body">
+            <div class="bio-hero-name">Riftfire</div>
+            <div class="bio-real-name">Elena Marquez — The Teacher</div>
+            <p class="bio-text">Lena Marquez spends her days teaching physics to teenagers in Riverside Ward and her evenings making kinetic force look effortless. She is the most grounded person on the Alliance roster — she has a life outside the mask, and she protects it deliberately.</p>
+            <p class="bio-text">She joined because Paragon asked and because she had been doing this quietly for years anyway. She is the one Alliance member who genuinely seems like she knows who she is outside the suit.</p>
+            <div>
+              <span class="bio-ability-tag">Kinetic Manipulation</span>
+              <span class="bio-ability-tag">Teleportation</span>
+              <span class="bio-ability-tag">Energy Redirection</span>
+              <span class="bio-ability-tag">High-Speed Locomotion</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alliance-bio-card">
+          <div class="bio-card-accent gold"></div>
+          <div class="bio-card-body">
+            <div class="bio-hero-name" style="color: var(--alliance-sub);">Starfall</div>
+            <div class="bio-real-name">Kiara Je-rach — The Defector</div>
+            <p class="bio-text">Kiara was not born. She was built — engineered by an organization older than most human civilizations to audit and, where necessary, eliminate unstable planetary systems. She arrived on Earth with a determination. Paragon changed her mind.</p>
+            <p class="bio-text">She has been learning what it means to choose something ever since. She approaches human life with the careful attention of someone who finds it genuinely miraculous and is not entirely sure she deserves to be part of it.</p>
+            <div>
+              <span class="bio-ability-tag">Energy Projection</span>
+              <span class="bio-ability-tag">Gravity Manipulation</span>
+              <span class="bio-ability-tag">Near-Invulnerability</span>
+              <span class="bio-ability-tag">Super-Intelligence</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alliance-bio-card">
+          <div class="bio-card-accent"></div>
+          <div class="bio-card-body">
+            <div class="bio-hero-name">Quantum</div>
+            <div class="bio-real-name">Dr. Javier Mendez — The Equation</div>
+            <p class="bio-text">Dr. Javier Mendez set out to prove that reality could be harnessed. He was right, and it cost him everything he was. His experiment scattered him across multiple quantum states simultaneously. The containment suit that holds him together is one of the most sophisticated pieces of engineering in the world. He helped design it.</p>
+            <p class="bio-text">He is brilliant in a way that leaves very little room for anything else. He treats conflict, morality, and people as problems to be solved. The Alliance is fortunate that his answers, so far, have been the right ones.</p>
+            <div>
+              <span class="bio-ability-tag">Quantum Phasing</span>
+              <span class="bio-ability-tag">Teleportation</span>
+              <span class="bio-ability-tag">Accelerated Cognition</span>
+              <span class="bio-ability-tag">Reality Duplication</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alliance-bio-card">
+          <div class="bio-card-accent gold"></div>
+          <div class="bio-card-body">
+            <div class="bio-hero-name" style="color: var(--alliance-sub);">The Vanguard</div>
+            <div class="bio-real-name">Natalia Orlov — The Survivor</div>
+            <p class="bio-text">Natalia Orlov does not talk about what was done to her to make her what she is. The scars are extensive. The capabilities are extraordinary. The program that built her believed it was creating a failsafe. She concluded, after years of evidence, that the people running the failsafe were exactly what they claimed to be protecting against.</p>
+            <p class="bio-text">She chose the Alliance because it was the only institution she had encountered that hadn't yet betrayed the people it was supposed to protect. She is watching to see if that changes.</p>
+            <div>
+              <span class="bio-ability-tag">Bioelectric Discharge</span>
+              <span class="bio-ability-tag">Enhanced Physiology</span>
+              <span class="bio-ability-tag">Neural Combat Implants</span>
+              <span class="bio-ability-tag">Pain Suppression</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="alliance-press-footer">
+        <div>© 2025 The Alliance — Halden City // For press inquiries contact pressoffice@thealliance-hc.org</div>
+        <div>alliance-hc.org // Crownpoint, Halden City</div>
+      </div>
+    </div>
+
+    <!-- PRESS RELEASES PAGE -->
+    <div class="alliance-page" id="alliance-press">
+      <div style="font-family: 'Oswald', sans-serif; font-size: 13px; color: var(--alliance-sub); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 32px;">Press Room — Official Statements</div>
+
+      <div class="press-releases">
+
+        <div class="press-release">
+          <div class="press-release-meta">FOR IMMEDIATE RELEASE // NOVEMBER 3, 2025 // THE ALLIANCE PRESS OFFICE</div>
+          <h3>Alliance Statement on Monument Circle Incident — November 1, 2025</h3>
+          <p>On the evening of November 1st, Alliance operatives responded to a coordinated disruption at Monument Circle involving an unregistered individual later classified by A.E.G.I.S. as a Beta-level incident. The situation was resolved without civilian casualties. Three individuals were detained and transferred to A.E.G.I.S. custody per standard protocol.</p>
+          <p>The Alliance continues to prioritize rapid civilian response in all districts. We are aware of ongoing concerns about response time disparities between Crownpoint and the Ironworks. This is a matter we are actively addressing in coordination with the Regional Director's office.</p>
+          <p>We remain committed to Halden City and to the people in it.</p>
+          <div class="byline">— The Alliance Press Office, on behalf of the team</div>
+        </div>
+
+        <div class="press-release">
+          <div class="press-release-meta">FOR IMMEDIATE RELEASE // OCTOBER 28, 2025 // THE ALLIANCE PRESS OFFICE</div>
+          <h3>Regarding Reports of Unregistered Metahuman Activity — Riverside Ward</h3>
+          <p>The Alliance acknowledges reports of several individuals operating in a semi-sanctioned capacity within the Riverside Ward and Ironworks districts. These individuals are operating under informal mentorship arrangements with Alliance members and have not yet completed formal A.E.G.I.S. registration.</p>
+
+          <div class="signal-intrusion">
+            You are reading a statement from people who have decided they are the answer. Ask yourself: who decided that? Not you. Not the city. Not any process you were part of. Someone with very particular abilities made a very particular choice, and now those abilities define the shape of safety in your neighborhood. We are not asking you to be afraid. We are asking you to notice. The Alliance is accountable to no one. Their press office is very good. These are not the same thing.
+          </div>
+
+          <p>We want to be transparent with the public about this process. The Alliance takes its responsibility to emerging metahumans seriously. Mentorship and guided integration into formal frameworks is preferable to isolation or unsanctioned independent operation.</p>
+          <p>Formal registration for these individuals is expected to be completed in the coming months. Further updates will be provided as appropriate.</p>
+          <div class="byline">— The Alliance Press Office, on behalf of the team</div>
+        </div>
+
+        <div class="press-release">
+          <div class="press-release-meta">FOR IMMEDIATE RELEASE // OCTOBER 15, 2025 // THE ALLIANCE PRESS OFFICE</div>
+          <h3>The Alliance Marks Ten Years of Operation in Halden City</h3>
+          <p>This October marks ten years since the Alliance was formally established as Halden City's primary registered superhuman team. Over the past decade, Alliance operatives have responded to more than four thousand classified incidents, collaborated with A.E.G.I.S. on dozens of major containment operations, and maintained a consistent presence across all six city districts.</p>
+          <p>We are proud of what this team has built. We are under no illusions that the work is finished. Halden City continues to face challenges that require exactly the kind of response the Alliance was designed to provide. We intend to be here for the next ten years, and the ten after that.</p>
+          <p>Thank you to the people of Halden City for your continued trust. It is not something we take for granted.</p>
+          <div class="byline">— Ethan Roberts (Paragon), Alliance Founder and Coordinator</div>
+        </div>
+
+      </div>
+
+      <div class="alliance-press-footer">
+        <div>© 2025 The Alliance — Halden City // For press inquiries contact pressoffice@thealliance-hc.org</div>
+        <div>alliance-hc.org // Crownpoint, Halden City</div>
+      </div>
+    </div>
+
+  </div><!-- /alliance-body -->
+</section>
+
+<!-- ═══════════════════════════════════════
+     VIREK PAPERS FORUM SECTION
+═══════════════════════════════════════ -->
+<section id="forum" class="site-section">
+  <div class="forum-header">
+    <div class="forum-header-top">
+      <div>
+        <div class="forum-logo">VIREKPAPERS.NET <span>// the truth doesn't file injunctions</span></div>
+        <div class="forum-tagline">Independent research forum — Est. 2001 — Not affiliated with any government or superhuman organization</div>
+      </div>
+      <div class="forum-user-bar">
+        Logged in as: <span>guest_visitor</span> &nbsp;|&nbsp; Members online: <span>14</span>
+      </div>
+    </div>
+    <div class="forum-nav-bar">
+      <div class="forum-nav-item active" onclick="showForumPage('index', this)">Board Index</div>
+      <div class="forum-nav-item" onclick="showForumPage('broadcast', this)">[THREAD] The Broadcast</div>
+      <div class="forum-nav-item" onclick="showForumPage('decides', this)">[THREAD] Who Decides</div>
+    </div>
+  </div>
+
+  <div class="forum-body">
+
+    <!-- THREAD INDEX -->
+    <div class="forum-page active" id="forum-index">
+      <div class="forum-breadcrumb"><span>VIREKPAPERS.NET</span> » Board Index</div>
+
+      <div class="forum-board-header">
+        <div class="col-thread">Thread</div>
+        <div class="col-posts">Posts</div>
+        <div class="col-views">Views</div>
+        <div class="col-last">Last Post</div>
+      </div>
+
+      <div class="forum-thread-row null-pinned" onclick="showForumPage('decides', document.querySelector('.forum-nav-item:nth-child(3)'))">
+        <div class="thread-icon">📌</div>
+        <div class="thread-info">
+          <div class="thread-title">[PINNED] WHO DECIDES — a question for the forum</div>
+          <div class="thread-meta">by <span class="thread-author null"><a href="null_signal-profile.html">null_signal</a></span> — posted 3 days ago</div>
+        </div>
+        <div class="thread-posts">7</div>
+        <div class="thread-views">412</div>
+        <div class="thread-last">3 days ago<br><span class="last-user null"><a href="null_signal-profile.html">null_signal</a></span></div>
+      </div>
+
+      <div class="forum-thread-row pinned" onclick="showForumPage('broadcast', document.querySelector('.forum-nav-item:nth-child(2)'))">
+        <div class="thread-icon">📌</div>
+        <div class="thread-info">
+          <div class="thread-title">[MEGATHREAD] THE 1999 BROADCAST — Everything We Know (v14)</div>
+          <div class="thread-meta">by <span class="thread-author">GabrielWasRight</span> — last updated 1 week ago</div>
+        </div>
+        <div class="thread-posts">2,847</div>
+        <div class="thread-views">98,441</div>
+        <div class="thread-last">6 days ago<br><span class="last-user">GabrielWasRight</span></div>
+      </div>
+
+      <div class="forum-thread-row">
+        <div class="thread-icon">💬</div>
+        <div class="thread-info">
+          <div class="thread-title">The 2022 cache find at Blackwater — authenticated or not? Lets settle this</div>
+          <div class="thread-meta">by <span class="thread-author">skept1c_halden</span> — last updated 2 weeks ago</div>
+        </div>
+        <div class="thread-posts">183</div>
+        <div class="thread-views">7,221</div>
+        <div class="thread-last">2 weeks ago<br><span class="last-user">GabrielWasRight</span></div>
+      </div>
+
+      <div class="forum-thread-row">
+        <div class="thread-icon">💬</div>
+        <div class="thread-info">
+          <div class="thread-title">MANIFEST Division — what do we actually know about the youth program</div>
+          <div class="thread-meta">by <span class="thread-author">GabrielWasRight</span> — last updated 3 weeks ago</div>
+        </div>
+        <div class="thread-posts">91</div>
+        <div class="thread-views">3,108</div>
+        <div class="thread-last">3 weeks ago<br><span class="last-user">skept1c_halden</span></div>
+      </div>
+
+      <div class="forum-thread-row">
+        <div class="thread-icon">💬</div>
+        <div class="thread-info">
+          <div class="thread-title">Does Recluse have a blind spot? Someone is keeping AEGIS from telling him something</div>
+          <div class="thread-meta">by <span class="thread-author">GabrielWasRight</span> — last updated 1 month ago</div>
+        </div>
+        <div class="thread-posts">44</div>
+        <div class="thread-views">1,897</div>
+        <div class="thread-last">1 month ago<br><span class="last-user">skept1c_halden</span></div>
+      </div>
+
+      <div class="forum-thread-row">
+        <div class="thread-icon">💬</div>
+        <div class="thread-info">
+          <div class="thread-title">Operation MANIFEST — the original program vs. the "youth division" — are they connected</div>
+          <div class="thread-meta">by <span class="thread-author">skept1c_halden</span></div>
+        </div>
+        <div class="thread-posts">29</div>
+        <div class="thread-views">1,104</div>
+        <div class="thread-last">5 weeks ago<br><span class="last-user">skept1c_halden</span></div>
+      </div>
+
+      <div class="forum-members-strip">
+        <div class="members-strip-title">Active Members</div>
+        <div class="member-chips">
+          <div class="member-chip">
+            <div class="chip-name gabriel">GabrielWasRight</div>
+            <div class="chip-posts">4,712 posts</div>
+            <div class="chip-joined">joined: 2001</div>
+          </div>
+          <div class="member-chip">
+            <div class="chip-name skeptic">skept1c_halden</div>
+            <div class="chip-posts">1,083 posts</div>
+            <div class="chip-joined">joined: 2008</div>
+          </div>
+          <div class="member-chip">
+            <div class="chip-name null-s"><a href="null_signal-profile.html">null_signal</a></div>
+            <div class="chip-posts">9 posts</div>
+            <div class="chip-joined">joined: 3 days ago</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="forum-footer">
+        <div>VIREKPAPERS.NET — Independent Research Forum — Est. 2001</div>
+        <div>Powered by phpBB 3.2 // Forum time: UTC-5 // <span style="color: var(--forum-null);">9 new posts since your last visit</span></div>
+      </div>
+    </div>
+
+    <!-- THE BROADCAST THREAD -->
+    <div class="forum-page" id="forum-broadcast">
+      <div class="forum-breadcrumb"><span onclick="showForumPage('index', document.querySelector('.forum-nav-item:first-child'))">VIREKPAPERS.NET</span> » <span>[MEGATHREAD] THE 1999 BROADCAST</span></div>
+
+      <div class="forum-thread-title">
+        <span class="thread-tag">Megathread</span>
+        [MEGATHREAD] THE 1999 BROADCAST — Everything We Know (v14)
+      </div>
+
+      <!-- Post 1: GabrielWasRight -->
+      <div class="forum-post">
+        <div class="post-sidebar">
+          <div class="post-avatar">📡</div>
+          <div class="post-username gabriel">GabrielWasRight</div>
+          <div class="post-role">Senior Member</div>
+          <div class="post-count">4,712 posts</div>
+          <div class="post-joined">joined 2001</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">#1</span>
+            <span>Oct 14, 2025 — 11:32 PM</span>
+          </div>
+          <div class="post-body">
+            <p>Pinning the v14 update to the top. Read the full archive before posting. I am not re-litigating the 2022 cache authentication debate in this thread.</p>
+            <br>
+            <p><strong>WHAT WE KNOW:</strong></p>
+            <p>On October 31, 1999, Dr. Gabriel Virek — host of the Renegade Force — engineered a globally televised confrontation with the previous Paragon. During the battle, broadcast codes were interspersed in the feed. Those codes, for those who followed them, led to partial decryption keys for what Virek called <strong>"The Papers."</strong></p>
+            <p>Virek died. The previous Paragon died. The broadcast cut out.</p>
+            <p>What was revealed in those fragments: documented proof that Paragon intervened in a foreign election in 1971. Two other similar interventions strongly implied but not confirmed. The papers themselves — the full archive — were never released.</p>
+            <br>
+            <p><strong>WHAT WE DON'T KNOW:</strong></p>
+            <p>Where the remaining cache is. The 2022 Blackwater find gave us the 1971 file — authenticated, injuncted, partially suppressed. That's ONE document. Virek's papers are understood to cover nearly FOUR DECADES of interventions. We have a fragment.</p>
+            <p>There is someone who doesn't want the rest found. We have been operating under that assumption since 2001. Nothing has changed that.</p>
+            <div class="post-sig">— "The question isn't whether they're lying. The question is what they're lying about." // GabrielWasRight, est. 2001</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 2: skept1c -->
+      <div class="forum-post">
+        <div class="post-sidebar">
+          <div class="post-avatar">🔍</div>
+          <div class="post-username skeptic">skept1c_halden</div>
+          <div class="post-role">Member</div>
+          <div class="post-count">1,083 posts</div>
+          <div class="post-joined">joined 2008</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">#2</span>
+            <span>Oct 15, 2025 — 12:14 AM</span>
+          </div>
+          <div class="post-body">
+            <div class="quote-block">
+              <div class="quote-attr">GabrielWasRight wrote:</div>
+              There is someone who doesn't want the rest found.
+            </div>
+            <p>This is where you always lose me, Gabriel. "Someone doesn't want it found" does the work of an entire argument without actually being one. AEGIS has legal injunction authority. The government has classification authority. These are not conspiracies, these are bureaucratic tools that get used constantly. The 2022 cache got injuncted because that's what happens to leaked classified documents, not because of a shadow agenda.</p>
+            <p>I'm not saying Virek was wrong. I'm saying the leap from "one confirmed election intervention" to "four decades of systemic manipulation" requires evidence we don't have. One document is not a pattern. It's one document.</p>
+            <p>I'll keep reading. I'll keep asking for receipts.</p>
+            <div class="post-sig">— skepticism is not the same as denial</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 3: GabrielWasRight -->
+      <div class="forum-post">
+        <div class="post-sidebar">
+          <div class="post-avatar">📡</div>
+          <div class="post-username gabriel">GabrielWasRight</div>
+          <div class="post-role">Senior Member</div>
+          <div class="post-count">4,712 posts</div>
+          <div class="post-joined">joined 2001</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">#3</span>
+            <span>Oct 15, 2025 — 1:08 AM</span>
+          </div>
+          <div class="post-body">
+            <p>The pattern <em>is</em> the evidence, skeptic. The pattern of suppression. The pattern of classification. The pattern of A.E.G.I.S. restructuring exactly when their containment failures become public knowledge. The pattern of the previous Paragon's interventions accelerating year over year from 1963 until 1999 until someone finally forced a reckoning.</p>
+            <p>Virek spent TWENTY YEARS assembling those papers before the Renegade Force found him. He was not a crank. He was a UN policy advisor. He had access. The reason his publication scared people is because it was <strong>methodical.</strong></p>
+            <p>The new Paragon — Roberts — seems better. More restrained. But restrained is not the same as accountable. And the Alliance has been quietly expanding its junior operative program in the last six months and I am not the only one who has noticed this.</p>
+            <div class="post-sig">— "The question isn't whether they're lying. The question is what they're lying about." // GabrielWasRight, est. 2001</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 4: null_signal -->
+      <div class="forum-post null-post">
+        <div class="post-sidebar">
+          <div class="post-avatar" style="border-color: #1a3a4a; color: var(--forum-null);">◈</div>
+          <div class="post-username null-s"><a href="null_signal-profile.html">null_signal</a></div>
+          <div class="post-role" style="color: #3a6070;">new member</div>
+          <div class="post-count" style="color: #3a6070;">9 posts</div>
+          <div class="post-joined" style="color: #3a6070;">joined 3 days ago</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">◈</span>
+            <span style="color: #3a5060;">3 days ago — 00:00:01</span>
+          </div>
+          <div class="post-body">
+            <p>The Broadcast was a proof of concept. Virek was right about the system. He was wrong about the audience.</p>
+            <br>
+            <p>You've been studying what happened thirty years ago. The Alliance is currently deciding which young people with emerging abilities get mentored, by whom, under what terms. That's happening now. This week.</p>
+            <br>
+            <p>Someone is choosing who gets shaped and who gets managed. I'd ask who, but I think you already know the name.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="forum-reply-box">
+        <div class="reply-box-label">Post a Reply</div>
+        <textarea class="reply-box-input" placeholder="Write your reply here..."></textarea>
+        <div class="reply-box-note">You must be registered to reply. Registration is free and anonymous.</div>
+      </div>
+
+      <div class="forum-footer">
+        <div><span onclick="showForumPage('index', document.querySelector('.forum-nav-item:first-child'))" style="color: var(--forum-accent); cursor: pointer;">← Back to Board Index</span></div>
+        <div>4 posts in this thread // Page 1 of 1</div>
+      </div>
+    </div>
+
+    <!-- WHO DECIDES THREAD -->
+    <div class="forum-page" id="forum-decides">
+      <div class="forum-breadcrumb"><span onclick="showForumPage('index', document.querySelector('.forum-nav-item:first-child'))">VIREKPAPERS.NET</span> » <span>WHO DECIDES</span></div>
+
+      <div class="forum-thread-title" style="color: var(--forum-null);">
+        <span class="thread-tag" style="color: var(--forum-null); border-color: #1a3a4a;">[PINNED by null_signal]</span>
+        WHO DECIDES — a question for the forum
+      </div>
+
+      <!-- Post 1: null_signal OP -->
+      <div class="forum-post null-post">
+        <div class="post-sidebar">
+          <div class="post-avatar" style="border-color: #1a3a4a; color: var(--forum-null);">◈</div>
+          <div class="post-username null-s"><a href="null_signal-profile.html">null_signal</a></div>
+          <div class="post-role" style="color: #3a6070;">new member</div>
+          <div class="post-count" style="color: #3a6070;">9 posts</div>
+          <div class="post-joined" style="color: #3a6070;">joined 3 days ago</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">◈</span>
+            <span style="color: #3a5060;">3 days ago — 00:00:00</span>
+          </div>
+          <div class="post-body">
+            <p>This is not a thread about Virek.</p>
+            <br>
+            <p>Right now, in this city, there are young people with abilities that are still forming. They are being guided — informally, outside A.E.G.I.S. oversight — by individuals who have already decided what heroism looks like.</p>
+            <br>
+            <p>Those mentors have histories. Some are public. Most aren't.</p>
+            <br>
+            <p>The Alliance calls it mentorship. A.E.G.I.S.'s internal notes say something different. The young people themselves haven't been asked.</p>
+            <br>
+            <p><strong>WHO DECIDES</strong> which abilities get cultivated and which get contained? Who decided it would be these particular people, shaping these particular kids, right now?</p>
+            <br>
+            <p>I'm not asking you to be alarmed. I'm asking you to notice that no one voted on this.</p>
+            <div class="post-sig">// null_signal // 00:00:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 2: GabrielWasRight -->
+      <div class="forum-post">
+        <div class="post-sidebar">
+          <div class="post-avatar">📡</div>
+          <div class="post-username gabriel">GabrielWasRight</div>
+          <div class="post-role">Senior Member</div>
+          <div class="post-count">4,714 posts</div>
+          <div class="post-joined">joined 2001</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">#2</span>
+            <span>3 days ago — 9:17 AM</span>
+          </div>
+          <div class="post-body">
+            <p>I pinned this because I've been saying a version of this for three years and no one listened to me. The MANIFEST Division thread. The Recluse blind spot thread. This forum has the receipts.</p>
+            <p>The Alliance's junior operative expansion is real. It's happening now. I don't have names but I have enough: there's at least one individual in active mentorship with Riley Thomas whose file A.E.G.I.S. MANIFEST Division has flagged as anomalous. A.E.G.I.S. is watching but not intervening. That is a choice. That is someone deciding to let something happen while appearing not to.</p>
+            <p>null_signal — where are you getting your information? I want to collaborate. DM me.</p>
+            <div class="post-sig">— "The question isn't whether they're lying. The question is what they're lying about." // GabrielWasRight, est. 2001</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 3: skept1c -->
+      <div class="forum-post">
+        <div class="post-sidebar">
+          <div class="post-avatar">🔍</div>
+          <div class="post-username skeptic">skept1c_halden</div>
+          <div class="post-role">Member</div>
+          <div class="post-count">1,085 posts</div>
+          <div class="post-joined">joined 2008</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">#3</span>
+            <span>3 days ago — 11:52 AM</span>
+          </div>
+          <div class="post-body">
+            <p>I don't like new accounts that post perfectly and never make typos. I'm just saying that for the record.</p>
+            <p>But the question itself is legitimate. Who decided the mentorship arrangements? That's worth asking. The Alliance press release was vague on purpose — "informal mentorship arrangements" is doing a lot of work.</p>
+            <p>What I will push back on: the framing that mentorship = control. Sometimes experienced people help less experienced people and it's just... that. Not every asymmetric relationship is an exercise of power over someone. Some of them are just people learning things they need to know.</p>
+            <p>That said — yeah, I want to know who these kids are. I want to know what A.E.G.I.S. knows that they're not saying. The MANIFEST thread established that the division has flagged at least some of them. That's worth following.</p>
+            <p>null_signal: what do you know that you're not posting here?</p>
+            <div class="post-sig">— skepticism is not the same as denial</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 4: null_signal response -->
+      <div class="forum-post null-post">
+        <div class="post-sidebar">
+          <div class="post-avatar" style="border-color: #1a3a4a; color: var(--forum-null);">◈</div>
+          <div class="post-username null-s"><a href="null_signal-profile.html">null_signal</a></div>
+          <div class="post-role" style="color: #3a6070;">new member</div>
+          <div class="post-count" style="color: #3a6070;">9 posts</div>
+          <div class="post-joined" style="color: #3a6070;">joined 3 days ago</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">◈</span>
+            <span style="color: #3a5060;">2 days ago — 00:00:01</span>
+          </div>
+          <div class="post-body">
+            <p>skept1c_halden — you're right to be suspicious. It won't help you.</p>
+            <br>
+            <p>GabrielWasRight — I don't collaborate.</p>
+            <br>
+            <p>Something will become public in the next few weeks. When it does, the instinct will be to ask what happened. That's the wrong question. Ask who was already in position when it did.</p>
+            <br>
+            <p>WHO DECIDES is the thread. I won't post again until the answer is obvious.</p>
+            <div class="post-sig">// null_signal // 00:00:01 // ◈</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 5: midnight only — hidden by default, shown 00:00–00:01 by JS -->
+      <div class="forum-post null-post" id="midnight-post" style="display:none;">
+        <div class="post-sidebar">
+          <div class="post-avatar" style="border-color: #1a3a4a; color: var(--forum-null);">◈</div>
+          <div class="post-username null-s"><a href="null_signal-profile.html">null_signal</a></div>
+          <div class="post-role" style="color: #3a6070;">new member</div>
+          <div class="post-count" style="color: #3a6070;">9 posts</div>
+          <div class="post-joined" style="color: #3a6070;">joined 3 days ago</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header">
+            <span class="post-number">◈</span>
+            <span style="color: #3a5060;">now — 00:00:00</span>
+          </div>
+          <div class="post-body">
+            <p>You're awake at the right time.</p>
+            <div class="post-sig">// ◈</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="forum-reply-box">
+        <div class="reply-box-label">Post a Reply</div>
+        <textarea class="reply-box-input" placeholder="Write your reply here..."></textarea>
+        <div class="reply-box-note">You must be registered to reply. Registration is free and anonymous.</div>
+      </div>
+
+      <div class="forum-footer">
+        <div><span onclick="showForumPage('index', document.querySelector('.forum-nav-item:first-child'))" style="color: var(--forum-accent); cursor: pointer;">← Back to Board Index</span></div>
+        <div id="decides-footer-count">4 posts in this thread // Page 1 of 1 // <span style="color: var(--forum-null);">null_signal has not been seen online since this post</span></div>
+      </div>
+    </div>
+
+  </div><!-- /forum-body -->
+</section>
+
+<script>
+  function showSection(name, tab) {
+    document.querySelectorAll('.site-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => {
+      t.classList.remove('active-aegis', 'active-alliance', 'active-forum');
+    });
+    document.getElementById(name).classList.add('active');
+    tab.classList.add('active-' + name);
+  }
+
+  function showAegisPage(name, item) {
+    document.querySelectorAll('.aegis-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.aegis-nav-item').forEach(i => i.classList.remove('active'));
+    document.getElementById('aegis-' + name).classList.add('active');
+    item.classList.add('active');
+  }
+
+  function showAlliancePage(name, item) {
+    document.querySelectorAll('.alliance-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.alliance-header-nav-item').forEach(i => i.classList.remove('active'));
+    document.getElementById('alliance-' + name).classList.add('active');
+    item.classList.add('active');
+  }
+
+  function showForumPage(name, item) {
+    document.querySelectorAll('.forum-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.forum-nav-item').forEach(i => i.classList.remove('active'));
+    document.getElementById('forum-' + name).classList.add('active');
+    if (item) item.classList.add('active');
+  }
+
+  // Midnight post — visible only between 00:00:00 and 00:01:00
+  (function() {
+    const now = new Date();
+    const h = now.getHours();
+    const m = now.getMinutes();
+    if (h === 0 && m === 0) {
+      const post = document.getElementById('midnight-post');
+      if (post) post.style.display = 'flex';
+      const footer = document.getElementById('decides-footer-count');
+      if (footer) footer.innerHTML = '5 posts in this thread // Page 1 of 1 // <span style="color: var(--forum-null);">null_signal is online</span>';
+    }
+  })();
+</script>
 </body>
 </html>
